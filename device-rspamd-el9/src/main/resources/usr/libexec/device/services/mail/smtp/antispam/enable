@@ -1,0 +1,28 @@
+#!/bin/sh
+
+set -e
+umask 0002
+
+if [ "$1" == "--" ]; then
+
+  /usr/bin/sudo /usr/bin/systemctl --quiet enable rspamd-autodiscovery.service
+  /usr/bin/sudo /usr/bin/systemctl --quiet enable rspamd.service
+
+  if test -f "enabled"; then
+    echo "antispam is already enabled."
+  elif test -f "disabled"; then
+    mv "disabled" "enabled"
+    /usr/bin/sudo /usr/bin/systemctl restart rspamd-autodiscovery.service
+    /usr/bin/sudo /usr/bin/systemctl restart rspamd.service
+  else
+    touch "enabled"
+    echo "antispam will be enabled on next reboot."
+  fi
+
+  if test -f "enabled"; then
+    mkdir -p /etc/device/services/mail/smtp/milters
+    ln -s /run/rspamd/rspamd-proxy.sock /etc/device/services/mail/smtp/milters/50-rspamd
+  fi
+
+fi
+

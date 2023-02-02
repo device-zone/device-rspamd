@@ -1,0 +1,7 @@
+if [ $1 = 0 ]; then
+  /usr/bin/systemctl stop rspamd-autodiscovery.service
+  /usr/bin/systemctl stop rspamd.service
+  /usr/bin/systemctl disable rspamd-autodiscovery.service
+  /usr/bin/systemctl disable rspamd.service
+fi
+

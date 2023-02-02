@@ -1,0 +1,18 @@
+# systemd service for managing all rspamd autoconfiguration.
+
+[Unit]
+Description=Rspamd Configuration Autodiscovery
+#Requires=rspamd.service
+#PartOf=rspamd.service
+#ReloadPropagatedFrom=rspamd.service
+Before=rspamd.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /usr/libexec/device-rspamd-autodiscovery
+ExecReload=/bin/bash /usr/libexec/device-rspamd-autodiscovery
+RemainAfterExit=on
+
+[Install]
+WantedBy=multi-user.target
+
