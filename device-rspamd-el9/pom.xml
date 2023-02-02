@@ -156,9 +156,6 @@
                 <source>
                   <location>target/classes/usr/libexec/device/services/mail/smtp/antispam/disable</location>
                 </source>
-                <source>
-                  <location>target/classes/usr/libexec/device/services/mail/smtp/antispam/set</location>
-                </source>
               </sources>
             </mapping>
           </mappings>
