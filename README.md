@@ -1,0 +1,2 @@
+# device-rspamd
+Rspamd appliance
