@@ -6,11 +6,12 @@ Description=Rspamd Configuration Autodiscovery
 #PartOf=rspamd.service
 #ReloadPropagatedFrom=rspamd.service
 Before=rspamd.service
+Before=postfix-autodiscovery.service
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash /usr/libexec/device-rspamd-autodiscovery
-ExecReload=/bin/bash /usr/libexec/device-rspamd-autodiscovery
+ExecStart=/bin/bash /usr/libexec/device-autodiscovery/rspamd
+ExecReload=/bin/bash /usr/libexec/device-autodiscovery/rspamd
 RemainAfterExit=on
 
 [Install]

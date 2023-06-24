@@ -1,24 +1,23 @@
 #!/bin/sh
-
+  
 set -e
 umask 0002
 
 if [ "$1" == "--" ]; then
 
-  /usr/bin/sudo /usr/bin/systemctl --quiet disable rspamd-autodiscovery.service
   /usr/bin/sudo /usr/bin/systemctl --quiet disable rspamd.service
 
-  if test -f "disabled"; then
-    echo "arc is already disabled."
-  elif test -f "enabled"; then
-    mv "enabled" "disabled"
-    /usr/bin/sudo /usr/bin/systemctl stop rspamd.service
-    /usr/bin/sudo /usr/bin/systemctl stop rspamd-autodiscovery.service
-  fi
-
-  if test -f "disabled"; then
-    /bin/rm -f /etc/device/services/mail/smtp/milters/50-rspamd
+  if test -f "disabled.bin"; then
+    echo "antispam is already disabled."
+  else
+    touch "disabled.bin"
+    if systemctl is-active --quiet rspamd-autodiscovery.service; then
+      /usr/bin/sudo /usr/bin/systemctl stop rspamd.service
+    else
+      echo "antispam will be disabled on next reboot."
+    fi
   fi
 
 fi
+
 
