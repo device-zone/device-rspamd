@@ -12,6 +12,14 @@ umask 0022
 
 
 #
+# selinux workaround
+# ------------------
+
+semanage fcontext -a -t dkim_milter_data_t '/var/run/rspamd(/.*)?' 2>/dev/null || true
+restorecon /var/run/rspamd || true
+
+
+#
 # worker-proxy.inc
 # ----------------
 
