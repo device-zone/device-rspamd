@@ -172,6 +172,7 @@
           </preremoveScriptlet>
           <requires>
             <require>rspamd</require>
+            <require>device-redis</require>
             <require>device</require>
           </requires>
         </configuration>
